@@ -27,17 +27,8 @@ class Tiler:
         loaded_data = { }
         t = self.needNewData(pos)
         if t is not None:
-            tiles_x = range(t.x-1, t.x+2)
-            tiles_y = range(t.y-1, t.y+2)
-            for tx in tiles_x:
-                for ty in tiles_y:
-                    this_tile = Tile(tx, ty, t.z)
-                    data = self.loadTile(this_tile)
-                    if data is not None:
-                        loaded_data["{this_tile.z}/{this_tile.x}/{this_tile.y}"] = data
-
-
-        return loaded_data
+            data = self.loadTile(t)
+        return t 
 
     
     def needNewData(self, pos):
