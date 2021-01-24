@@ -4,7 +4,7 @@ from tiling.tiler import Tiler
 from dotenv import load_dotenv
 import os
 
-def get_unprocessed_panos():
+def get_unprocessed_panos(conn):
     p = re.compile(r'[\d\-\.]+')
     cur = conn.cursor()
     cur.execute("SELECT id,ST_AsText(the_geom) FROM panoramas WHERE ele IS NULL ORDER BY id")
@@ -16,7 +16,7 @@ def get_unprocessed_panos():
         new_results.append((result[0], (nums[0], nums[1])))
     return new_results
    
-def add_elevation(panos):
+def add_elevation(conn, panos):
     tiler = Tiler("https://hikar.org/webapp/proxy.php?x={x}&y={y}&z={z}")
     cur = conn.cursor()
     for pano in panos:
@@ -28,10 +28,12 @@ def add_elevation(panos):
     conn.commit()
     cur.close()
             
-        
-            
-load_dotenv()
-conn = psycopg2.connect(f"dbname={os.environ.get('DB_NAME')} user={os.environ.get('DB_USER')}")
-panos = get_unprocessed_panos()
-add_elevation(panos)
-conn.close()
+def main():
+    load_dotenv()
+    conn = psycopg2.connect(f"dbname={os.environ.get('DB_NAME')} user={os.environ.get('DB_USER')}")
+    panos = get_unprocessed_panos(conn)
+    add_elevation(conn, panos)
+    conn.close()
+
+if __name__ == "__main__":
+    main()
