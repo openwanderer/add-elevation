@@ -1,15 +1,12 @@
-# OpenWanderer Server Bot
+# OpenWanderer Elevation Script 
 
-This 'bot' performs server-side processing of submitted panoramas. It will perform tasks such as:
+This script gives each panorama an elevation, using the Terrarium elevation tiles on AWS.
 
-- give each panorama an elevation, using the Terrarium elevation tiles on AWS;
-- perform face and license plate blurring (not yet implemented);
-- use Mapillary's Structure from Motion to correct the orientation of adjacent panos (not yet implemented).
-
+Note that other server-side processing tasks will be run as separate scripts. For example, see [the anonymiser script](https://github.com/openwanderer/anon)
 
 ## Installing
 
-The 'bot' is being developed using Python 3.6. 
+The script is being developed using Python 3.6. 
 
 For now, it requires the `python-dotenv`, `pillow`, `psycopg2` and `requests` modules, which can be installed using `pip3` e.g.:
 

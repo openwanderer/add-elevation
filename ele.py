@@ -17,7 +17,7 @@ def get_unprocessed_panos(conn):
     return new_results
    
 def add_elevation(conn, panos):
-    tiler = Tiler("https://hikar.org/webapp/proxy.php?x={x}&y={y}&z={z}")
+    tiler = Tiler("https://hikar.org/webapp/dem/{z}/{x}/{y}.png")
     cur = conn.cursor()
     for pano in panos:
         sphmerc_coords = tiler.sphMerc.project(pano[1])
